@@ -1,6 +1,7 @@
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import "../styles/home.css";
+import ExploreSection from "../components/Exploreselection";
 
 export default function Home() {
   return (
@@ -112,6 +113,7 @@ export default function Home() {
           Order Your Cake Now
         </button>
       </section>
+      <ExploreSection />
 
       <Footer />
     </div>
