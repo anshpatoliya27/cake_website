@@ -3,7 +3,7 @@ import Footer from "../components/Footer";
 import "../styles/home.css";
 import ExploreSection from "../components/Exploreselection";
 
-export default function Home() {
+export default function Home({ onNavigate }) {
   return (
     <div className="bg-[#fff] text-gray-800">
 
@@ -11,7 +11,7 @@ export default function Home() {
 
       {/* Hero Section */}
       <section className="pt-28 px-6 md:px-16 flex flex-col md:flex-row items-center justify-between">
-        
+
         {/* Left */}
         <div className="max-w-xl">
           <h1 className="text-4xl md:text-5xl font-bold leading-tight">
@@ -25,7 +25,10 @@ export default function Home() {
           </p>
 
           <div className="mt-6 flex gap-4">
-            <button className="bg-pink-500 text-white px-6 py-3 rounded-lg shadow hover:bg-pink-600">
+            <button
+              onClick={() => onNavigate && onNavigate("customize")}
+              className="bg-pink-500 text-white px-6 py-3 rounded-lg shadow hover:bg-pink-600"
+            >
               Order Now
             </button>
 
@@ -49,7 +52,7 @@ export default function Home() {
         </h2>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-          
+
           {[
             "Birthday Cakes",
             "Chocolate Cakes",
@@ -78,7 +81,7 @@ export default function Home() {
         </h2>
 
         <div className="grid md:grid-cols-3 gap-6">
-          
+
           <div className="p-6 bg-white rounded-xl soft-shadow">
             <h3 className="font-semibold text-pink-500">🎂 100% Eggless</h3>
             <p className="mt-2 text-sm text-gray-600">
@@ -109,8 +112,11 @@ export default function Home() {
           Make Your Moments Sweeter 🎉
         </h2>
 
-        <button className="mt-6 bg-pink-500 text-white px-8 py-3 rounded-lg shadow hover:bg-pink-600">
-          Order Your Cake Now
+        <button
+          onClick={() => onNavigate && onNavigate("customize")}
+          className="mt-6 bg-pink-500 text-white px-8 py-3 rounded-lg shadow hover:bg-pink-600"
+        >
+          Customize Your Cake ✨
         </button>
       </section>
       <ExploreSection />
