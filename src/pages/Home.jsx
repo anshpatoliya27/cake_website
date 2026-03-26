@@ -1,125 +1,311 @@
+import { useRef } from "react";
+import { motion, useInView } from "framer-motion";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import "../styles/home.css";
-import ExploreSection from "../components/Exploreselection";
 
+// ─── Animated Section ───
+function FadeIn({ children, className = "", delay = 0 }) {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-60px" });
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 40 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.7, delay, ease: [0.25, 0.46, 0.45, 0.94] }}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+// ─── Cream Drip SVG (Frosting separator) ───
+function CreamDrip({ fromColor = "#fff5f7", toColor = "#ffffff", className = "" }) {
+  return (
+    <div className={`cream-drip ${className}`}>
+      <svg viewBox="0 0 1440 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="1440" height="60" fill={fromColor} />
+        <path d="M0,60 
+          C60,60 90,60 120,62 C150,65 160,90 180,95 C200,100 210,80 240,60
+          C280,60 320,60 360,60 C380,60 390,60 420,65 C450,80 460,110 480,115 C500,110 510,75 540,60
+          C600,60 660,60 720,60 C740,60 750,62 770,70 C790,85 800,100 820,100 C840,100 850,78 870,60
+          C930,60 990,60 1020,60 C1040,60 1050,65 1070,75 C1090,90 1100,105 1120,105 C1140,105 1150,85 1170,60
+          C1230,60 1290,60 1350,60 C1370,60 1380,62 1400,68 C1420,80 1430,90 1440,85 L1440,0 L0,0 Z"
+          fill={fromColor} />
+        <path d="M0,60
+          C60,60 90,60 120,62 C150,65 160,90 180,95 C200,100 210,80 240,60
+          C280,60 320,60 360,60 C380,60 390,60 420,65 C450,80 460,110 480,115 C500,110 510,75 540,60
+          C600,60 660,60 720,60 C740,60 750,62 770,70 C790,85 800,100 820,100 C840,100 850,78 870,60
+          C930,60 990,60 1020,60 C1040,60 1050,65 1070,75 C1090,90 1100,105 1120,105 C1140,105 1150,85 1170,60
+          C1230,60 1290,60 1350,60 C1370,60 1380,62 1400,68 C1420,80 1430,90 1440,85
+          L1440,120 L0,120 Z"
+          fill={toColor} />
+      </svg>
+    </div>
+  );
+}
+
+// ─── Data ───
+const FEATURES = [
+  { emoji: "🥚", title: "100% Eggless", desc: "Pure vegetarian" },
+  { emoji: "🧁", title: "Freshly Baked", desc: "Made to order" },
+  { emoji: "🏡", title: "Homemade", desc: "Kitchen crafted" },
+  { emoji: "📍", title: "Ahmedabad", desc: "Local pickup" },
+];
+
+const PRODUCTS = [
+  { name: "Belgian Chocolate Dream", desc: "Rich dark chocolate layered cake with ganache", price: "₹650", img: "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=400&h=400&fit=crop", tag: "Bestseller" },
+  { name: "Strawberry Bliss", desc: "Light vanilla sponge with fresh strawberry cream", price: "₹550", img: "https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=400&h=400&fit=crop", tag: "Popular" },
+  { name: "Classic Vanilla", desc: "Timeless vanilla buttercream with sprinkles", price: "₹500", img: "https://images.unsplash.com/photo-1558636508-e0db3814bd1d?w=400&h=400&fit=crop", tag: "New" },
+];
+
+const INGREDIENTS_DATA = [
+  { label: "🧈 Premium Butter", top: "5%", left: "5%" },
+  { label: "🍫 Pure Cocoa", top: "8%", left: "65%" },
+  { label: "🫐 Fresh Berries", top: "45%", left: "0%" },
+  { label: "🍓 Real Strawberry", top: "42%", left: "70%" },
+  { label: "🌾 Fine Flour", top: "80%", left: "8%" },
+  { label: "🥛 Fresh Cream", top: "78%", left: "68%" },
+];
+
+// ─── Main Component ───
 export default function Home({ onNavigate }) {
   return (
-    <div className="bg-[#fff] text-gray-800">
-
+    <div className="home-wrapper">
       <Navbar />
 
-      {/* Hero Section */}
-      <section className="pt-28 px-6 md:px-16 flex flex-col md:flex-row items-center justify-between">
+      <div className="home-content">
 
-        {/* Left */}
-        <div className="max-w-xl">
-          <h1 className="text-4xl md:text-5xl font-bold leading-tight">
-            Fresh Homemade <br />
-            <span className="text-pink-500">Eggless Cakes 🎂</span>
-          </h1>
+        {/* ═══════════════════════════════
+            1. HERO — Pink gradient + Big cake
+        ═══════════════════════════════ */}
+        <section className="hero-block">
+          {/* Floating fruit decorations */}
+          <motion.span className="hero-deco hero-deco--1" animate={{ y: [0, -14, 0] }} transition={{ duration: 4, repeat: Infinity }}>🍓</motion.span>
+          <motion.span className="hero-deco hero-deco--2" animate={{ y: [0, -10, 0] }} transition={{ duration: 3.5, repeat: Infinity, delay: 0.5 }}>🫐</motion.span>
+          <motion.span className="hero-deco hero-deco--3" animate={{ y: [0, -12, 0] }} transition={{ duration: 4.5, repeat: Infinity, delay: 1 }}>🍃</motion.span>
+          <motion.span className="hero-deco hero-deco--4" animate={{ y: [0, -8, 0] }} transition={{ duration: 3, repeat: Infinity, delay: 0.3 }}>🌿</motion.span>
+          <motion.span className="hero-deco hero-deco--5" animate={{ y: [0, -16, 0] }} transition={{ duration: 5, repeat: Infinity, delay: 1.5 }}>🍒</motion.span>
+          <motion.span className="hero-deco hero-deco--6" animate={{ y: [0, -10, 0] }} transition={{ duration: 3.8, repeat: Infinity, delay: 2 }}>🍃</motion.span>
 
-          <p className="mt-4 text-gray-600">
-            Made with love in Ahmedabad 💖 <br />
-            Pre-order your favorite cake at least 1 day in advance.
-          </p>
-
-          <div className="mt-6 flex gap-4">
-            <button
-              onClick={() => onNavigate && onNavigate("customize")}
-              className="bg-pink-500 text-white px-6 py-3 rounded-lg shadow hover:bg-pink-600"
+          <div className="hero-inner">
+            {/* Left text */}
+            <motion.div
+              className="hero-text"
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
             >
-              Order Now
-            </button>
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.15 }}
+              >
+                <span className="hero-label">✨ Homemade in Ahmedabad</span>
+              </motion.div>
 
-            <button className="border px-6 py-3 rounded-lg hover:bg-gray-100">
-              View Cakes
-            </button>
-          </div>
-        </div>
+              <h1 className="hero-heading">
+                The Most <span className="pink">Delicious</span><br />
+                Eggless Cakes<br />
+                <span className="pink">in Ahmedabad</span> 🎂
+              </h1>
 
-        {/* Right Image */}
-        <img
-          src="https://images.unsplash.com/photo-1578985545062-69928b1d9587"
-          className="w-[350px] mt-10 md:mt-0 rounded-xl soft-shadow"
-        />
-      </section>
+              <p className="hero-desc">
+                If you love premium desserts, you won't be able to resist our handcrafted
+                eggless cakes — made fresh just for you!
+              </p>
 
-      {/* Categories / Highlights */}
-      <section className="px-6 md:px-16 mt-16">
-        <h2 className="text-2xl font-semibold mb-6">
-          Popular Categories
-        </h2>
+              <div className="flex gap-4 flex-wrap">
+                <motion.button
+                  whileHover={{ scale: 1.04, y: -2 }}
+                  whileTap={{ scale: 0.97 }}
+                  onClick={() => onNavigate && onNavigate("customize")}
+                  className="btn-primary"
+                >
+                  Customize Your Cake
+                </motion.button>
+                <motion.button
+                  whileHover={{ scale: 1.03, y: -2 }}
+                  whileTap={{ scale: 0.97 }}
+                  className="btn-secondary"
+                >
+                  View Menu
+                </motion.button>
+              </div>
+            </motion.div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-
-          {[
-            "Birthday Cakes",
-            "Chocolate Cakes",
-            "Photo Cakes",
-            "Anniversary Cakes"
-          ].map((item, i) => (
-            <div
-              key={i}
-              className="card-hover bg-white rounded-xl p-4 text-center soft-shadow"
+            {/* Right image */}
+            <motion.div
+              className="hero-image-side"
+              initial={{ opacity: 0, scale: 0.85 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.9, delay: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
             >
               <img
-                src="https://images.unsplash.com/photo-1603532648955-039310d9ed75"
-                className="w-full h-32 object-cover rounded-lg"
+                src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=800&h=800&fit=crop"
+                alt="Delicious eggless cake"
+                className="hero-cake-img"
               />
-              <p className="mt-3 text-sm font-medium">{item}</p>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* Cream drip separator: pink → white */}
+        <CreamDrip fromColor="#ffd6e2" toColor="#ffffff" />
+
+        {/* ═══════════════════════════════
+            2. FEATURE STRIP
+        ═══════════════════════════════ */}
+        <section className="feature-strip">
+          <div className="section-container">
+            <div className="feature-strip-grid">
+              {FEATURES.map((f, i) => (
+                <motion.div
+                  key={i}
+                  className="feature-item"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1, duration: 0.5 }}
+                >
+                  <div className="feature-item-icon">{f.emoji}</div>
+                  <div className="feature-item-text">
+                    <h4>{f.title}</h4>
+                    <p>{f.desc}</p>
+                  </div>
+                </motion.div>
+              ))}
             </div>
-          ))}
-
-        </div>
-      </section>
-
-      {/* Why Choose Us */}
-      <section className="px-6 md:px-16 mt-20">
-        <h2 className="text-2xl font-semibold mb-6">
-          Why Choose Us
-        </h2>
-
-        <div className="grid md:grid-cols-3 gap-6">
-
-          <div className="p-6 bg-white rounded-xl soft-shadow">
-            <h3 className="font-semibold text-pink-500">🎂 100% Eggless</h3>
-            <p className="mt-2 text-sm text-gray-600">
-              Pure vegetarian cakes made with premium ingredients.
-            </p>
           </div>
+        </section>
 
-          <div className="p-6 bg-white rounded-xl soft-shadow">
-            <h3 className="font-semibold text-pink-500">⏰ Fresh on Order</h3>
-            <p className="mt-2 text-sm text-gray-600">
-              Every cake is freshly baked after you place the order.
-            </p>
+        {/* ═══════════════════════════════
+            3. PRODUCT SHOWCASE
+        ═══════════════════════════════ */}
+        <section className="products-block">
+          <div className="section-container">
+            <FadeIn>
+              <div className="products-heading">
+                <p className="eyebrow">Handpicked For You</p>
+                <h2>Our Signature Cakes</h2>
+              </div>
+            </FadeIn>
+
+            <div className="products-grid">
+              {PRODUCTS.map((p, i) => (
+                <motion.div
+                  key={i}
+                  className="product-card"
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.12, duration: 0.6 }}
+                  whileHover={{ y: -8 }}
+                >
+                  <div className="product-card-img-wrap">
+                    <img src={p.img} alt={p.name} className="product-card-img" loading="lazy" />
+                    <span className="product-card-tag">{p.tag}</span>
+                  </div>
+                  <div className="product-card-body">
+                    <h3 className="product-card-name">{p.name}</h3>
+                    <p className="product-card-desc">{p.desc}</p>
+                    <div className="product-card-footer">
+                      <span className="product-card-price">{p.price}</span>
+                      <button
+                        className="product-card-btn"
+                        onClick={() => onNavigate && onNavigate("customize")}
+                      >
+                        Order
+                      </button>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
           </div>
+        </section>
 
-          <div className="p-6 bg-white rounded-xl soft-shadow">
-            <h3 className="font-semibold text-pink-500">📍 Pickup Only</h3>
-            <p className="mt-2 text-sm text-gray-600">
-              Available in Ahmedabad for pickup.
-            </p>
+        {/* Cream drip separator: white → pink */}
+        <CreamDrip fromColor="#ffffff" toColor="#fff0f3" />
+
+        {/* ═══════════════════════════════
+            4. INGREDIENTS SECTION (Pink BG)
+        ═══════════════════════════════ */}
+        <section className="ingredients-block">
+          {/* Decorative floating fruits */}
+          <motion.span className="ing-deco" style={{ top: "10%", left: "5%" }} animate={{ y: [0, -10, 0] }} transition={{ duration: 4, repeat: Infinity }}>🍓</motion.span>
+          <motion.span className="ing-deco" style={{ top: "20%", right: "8%" }} animate={{ y: [0, -12, 0] }} transition={{ duration: 5, repeat: Infinity, delay: 1 }}>🫐</motion.span>
+          <motion.span className="ing-deco" style={{ bottom: "15%", left: "10%" }} animate={{ y: [0, -8, 0] }} transition={{ duration: 3.5, repeat: Infinity, delay: 0.5 }}>🍒</motion.span>
+          <motion.span className="ing-deco" style={{ bottom: "20%", right: "5%" }} animate={{ y: [0, -14, 0] }} transition={{ duration: 4.5, repeat: Infinity, delay: 2 }}>🍃</motion.span>
+
+          <div className="ingredients-inner">
+            <FadeIn>
+              <div className="ingredients-heading">
+                <p className="eyebrow">The Secret Is In</p>
+                <h2>Our Natural Ingredients</h2>
+              </div>
+            </FadeIn>
+
+            <FadeIn delay={0.2}>
+              <div className="ingredients-visual">
+                {/* Central cake */}
+                <img
+                  src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=500&h=500&fit=crop"
+                  alt="Our signature cake"
+                  className="ingredients-cake"
+                />
+
+                {/* Floating ingredient labels */}
+                {INGREDIENTS_DATA.map((ing, i) => (
+                  <motion.div
+                    key={i}
+                    className="ingredient-label"
+                    style={{ top: ing.top, left: ing.left }}
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.4 + i * 0.1, type: "spring", stiffness: 200 }}
+                  >
+                    {ing.label}
+                  </motion.div>
+                ))}
+              </div>
+            </FadeIn>
           </div>
+        </section>
 
-        </div>
-      </section>
+        {/* Cream drip separator: pink → white */}
+        <CreamDrip fromColor="#ffe4ec" toColor="#ffffff" />
 
-      {/* CTA */}
-      <section className="px-6 md:px-16 mt-20 text-center">
-        <h2 className="text-3xl font-bold">
-          Make Your Moments Sweeter 🎉
-        </h2>
+        {/* ═══════════════════════════════
+            5. CTA SECTION
+        ═══════════════════════════════ */}
+        <section className="cta-block">
+          <FadeIn>
+            <div className="cta-inner">
+              <div className="cta-heading">
+                <p className="eyebrow">Want to Know More?</p>
+                <h2>Make Your Moments Sweeter 🎉</h2>
+              </div>
+              <p className="cta-desc">
+                Create your perfect cake with our interactive builder. Choose flavors,
+                toppings, and size — watch it come to life in real-time.
+              </p>
+              <motion.button
+                whileHover={{ scale: 1.05, y: -3 }}
+                whileTap={{ scale: 0.97 }}
+                onClick={() => onNavigate && onNavigate("customize")}
+                className="btn-primary"
+              >
+                ✨ Start Customizing
+              </motion.button>
+            </div>
+          </FadeIn>
+        </section>
 
-        <button
-          onClick={() => onNavigate && onNavigate("customize")}
-          className="mt-6 bg-pink-500 text-white px-8 py-3 rounded-lg shadow hover:bg-pink-600"
-        >
-          Customize Your Cake ✨
-        </button>
-      </section>
-      <ExploreSection />
+      </div>
 
       <Footer />
     </div>
