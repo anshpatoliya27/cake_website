@@ -11,7 +11,10 @@ import ToppingsSelector from "../components/customizer/ToppingsSelector";
 import MessageInput from "../components/customizer/MessageInput";
 import PriceDisplay from "../components/customizer/PriceDisplay";
 
-export default function CakeCustomizer({ onNavigate }) {
+import { useNavigate } from "react-router-dom";
+
+export default function CakeCustomizer() {
+    const navigate = useNavigate();
     const [shape, setShape] = useState("round");
     const [flavor, setFlavor] = useState("chocolate");
     const [cream, setCream] = useState("white");
@@ -38,17 +41,15 @@ export default function CakeCustomizer({ onNavigate }) {
             {/* Hero Header */}
             <section className="pt-28 pb-4 px-6 text-center">
                 {/* Back Button */}
-                {onNavigate && (
-                    <motion.button
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        onClick={() => onNavigate("home")}
-                        className="mb-4 inline-flex items-center gap-1.5 text-sm text-gray-500 hover:text-rose-500 transition-colors"
-                    >
-                        <span>←</span>
-                        <span>Back to Home</span>
-                    </motion.button>
-                )}
+                <motion.button
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    onClick={() => navigate("/")}
+                    className="mb-4 inline-flex items-center gap-1.5 text-sm text-gray-500 hover:text-rose-500 transition-colors"
+                >
+                    <span>←</span>
+                    <span>Back to Home</span>
+                </motion.button>
                 <motion.div
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}

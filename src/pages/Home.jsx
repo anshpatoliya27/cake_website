@@ -79,8 +79,11 @@ const INGREDIENTS_RIGHT = [
   { emoji: "🥛", title: "Fresh Cream", desc: "Whipped daily for silky smooth frosting and fillings" },
 ];
 
+import { useNavigate } from "react-router-dom";
+
 // ─── Main Component ───
-export default function Home({ onNavigate }) {
+export default function Home() {
+  const navigate = useNavigate();
   return (
     <div className="home-wrapper">
       <Navbar />
@@ -130,7 +133,7 @@ export default function Home({ onNavigate }) {
                 <motion.button
                   whileHover={{ scale: 1.04, y: -2 }}
                   whileTap={{ scale: 0.97 }}
-                  onClick={() => onNavigate && onNavigate("customize")}
+                  onClick={() => navigate("/customize")}
                   className="btn-primary"
                 >
                   Customize Your Cake
@@ -249,7 +252,7 @@ export default function Home({ onNavigate }) {
                       <span className="product-card-price">{p.price}</span>
                       <button
                         className="product-card-btn"
-                        onClick={() => onNavigate && onNavigate("customize")}
+                        onClick={() => navigate("/customize")}
                       >
                         Order
                       </button>
@@ -367,7 +370,7 @@ export default function Home({ onNavigate }) {
               <motion.button
                 whileHover={{ scale: 1.05, y: -3 }}
                 whileTap={{ scale: 0.97 }}
-                onClick={() => onNavigate && onNavigate("customize")}
+                onClick={() => navigate("/customize")}
                 className="btn-primary"
               >
                 ✨ Start Customizing
