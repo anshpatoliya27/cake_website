@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { FaWhatsapp, FaMapMarkerAlt, FaPhoneAlt, FaClock, FaBoxOpen } from "react-icons/fa";
+import { FaWhatsapp, FaInstagram, FaMapMarkerAlt, FaPhoneAlt, FaClock, FaBoxOpen } from "react-icons/fa";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
@@ -54,17 +54,24 @@ export default function Contact() {
                     <div className="absolute -top-10 left-10 w-48 h-48 bg-pink-300/30 rounded-full blur-3xl pointer-events-none" />
                     <div className="absolute bottom-0 right-10 w-64 h-64 bg-rose-300/30 rounded-full blur-3xl pointer-events-none" />
 
+                    {/* Floating elements for style */}
+                    <motion.div animate={{ y: [0, -10, 0] }} transition={{ duration: 4, repeat: Infinity }} className="absolute top-10 right-[15%] text-4xl opacity-50 hidden md:block pointer-events-none">💌</motion.div>
+                    <motion.div animate={{ y: [0, -12, 0] }} transition={{ duration: 5, repeat: Infinity, delay: 1 }} className="absolute bottom-10 left-[15%] text-4xl opacity-50 hidden md:block pointer-events-none">✨</motion.div>
+
                     <motion.div
                         initial="hidden"
                         animate="visible"
                         variants={fadeUp}
                         className="relative z-10 max-w-2xl mx-auto"
                     >
-                        <h1 className="text-4xl md:text-6xl font-extrabold mb-4 leading-tight tracking-tight text-[#1a1a2e]">
-                            Get in Touch 💬
+                        <span className="inline-block py-1.5 px-4 rounded-full bg-white/60 border border-white font-semibold text-rose-500 text-sm mb-6 backdrop-blur-md shadow-sm">
+                            We're Here For You
+                        </span>
+                        <h1 className="text-4xl md:text-6xl font-extrabold mb-6 leading-tight tracking-tight">
+                            Let's <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-rose-400">Get in Touch</span> 💬
                         </h1>
-                        <p className="text-lg md:text-xl text-gray-500 font-medium">
-                            We’d love to bake something special for you. Reach out for custom orders, queries, or just to say hi!
+                        <p className="text-lg md:text-xl text-gray-500 font-medium leading-relaxed">
+                            We’d love to bake something truly special for you. Reach out for custom tier cakes, event orders, or just to say hi!
                         </p>
                     </motion.div>
                 </section>
@@ -214,8 +221,8 @@ export default function Contact() {
                                 </motion.div>
                             </div>
 
-                            {/* Whatsapp CTA */}
-                            <motion.div variants={fadeUp} className="pt-6 border-t border-pink-200/60">
+                            {/* Action Buttons (WA & Insta) */}
+                            <motion.div variants={fadeUp} className="pt-6 border-t border-pink-200/60 space-y-4">
                                 <a
                                     href="https://wa.me/919876543210"
                                     target="_blank"
@@ -227,13 +234,30 @@ export default function Contact() {
                                         whileTap={{ scale: 0.98 }}
                                         className="w-full py-4 px-6 rounded-2xl bg-[#25D366] text-white font-bold text-lg shadow-[0_8px_20px_rgba(37,211,102,0.3)] hover:shadow-[0_12px_25px_rgba(37,211,102,0.4)] transition-all flex items-center justify-center gap-3 relative overflow-hidden group"
                                     >
-                                        {/* Glossy overlay effect built directly into CSS limits */}
                                         <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
                                         <FaWhatsapp className="text-3xl relative z-10" />
                                         <span className="relative z-10">Chat on WhatsApp</span>
                                     </motion.div>
                                 </a>
-                                <p className="text-center text-xs text-gray-400 font-semibold uppercase tracking-widest mt-4">Fastest way to reach us</p>
+
+                                <a
+                                    href="https://instagram.com/cakebykhushi"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="block"
+                                >
+                                    <motion.div
+                                        whileHover={{ scale: 1.03, y: -2 }}
+                                        whileTap={{ scale: 0.98 }}
+                                        className="w-full py-4 px-6 rounded-2xl bg-gradient-to-tr from-[#f09433] via-[#e6683c] via-[#dc2743] via-[#cc2366] to-[#bc1888] text-white font-bold text-lg shadow-[0_8px_20px_rgba(220,39,67,0.3)] hover:shadow-[0_12px_25px_rgba(220,39,67,0.4)] transition-all flex items-center justify-center gap-3 relative overflow-hidden group"
+                                    >
+                                        <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+                                        <FaInstagram className="text-3xl relative z-10" />
+                                        <span className="relative z-10">DM on Instagram</span>
+                                    </motion.div>
+                                </a>
+
+                                <p className="text-center text-xs text-gray-400 font-semibold uppercase tracking-widest mt-6">Fastest ways to reach us</p>
                             </motion.div>
 
                         </motion.div>
