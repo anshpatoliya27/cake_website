@@ -18,7 +18,8 @@ export default function Navbar() {
     { name: "Home", path: "/" },
     { name: "Cakes", path: "/cakes" },
     { name: "About", path: "/about" },
-    { name: "Contact", path: "/contact" }
+    { name: "Contact", path: "/contact" },
+    { name: "Blog", path: "/blog" }
   ];
 
   return (
