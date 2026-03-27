@@ -55,19 +55,28 @@ const FEATURES = [
   { emoji: "📍", title: "Ahmedabad", desc: "Local pickup" },
 ];
 
+const HERO_STATS = [
+  { value: "500+", label: "Cakes Delivered" },
+  { value: "100%", label: "Eggless" },
+  { value: "4.9★", label: "Customer Rating" },
+];
+
 const PRODUCTS = [
   { name: "Belgian Chocolate Dream", desc: "Rich dark chocolate layered cake with ganache", price: "₹650", img: "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=400&h=400&fit=crop", tag: "Bestseller" },
   { name: "Strawberry Bliss", desc: "Light vanilla sponge with fresh strawberry cream", price: "₹550", img: "https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=400&h=400&fit=crop", tag: "Popular" },
   { name: "Classic Vanilla", desc: "Timeless vanilla buttercream with sprinkles", price: "₹500", img: "https://images.unsplash.com/photo-1558636508-e0db3814bd1d?w=400&h=400&fit=crop", tag: "New" },
 ];
 
-const INGREDIENTS_DATA = [
-  { label: "🧈 Premium Butter", top: "5%", left: "5%" },
-  { label: "🍫 Pure Cocoa", top: "8%", left: "65%" },
-  { label: "🫐 Fresh Berries", top: "45%", left: "0%" },
-  { label: "🍓 Real Strawberry", top: "42%", left: "70%" },
-  { label: "🌾 Fine Flour", top: "80%", left: "8%" },
-  { label: "🥛 Fresh Cream", top: "78%", left: "68%" },
+const INGREDIENTS_LEFT = [
+  { emoji: "🧈", title: "Premium Butter", desc: "Rich, creamy European-style butter for the perfect crumb" },
+  { emoji: "🍫", title: "Belgian Cocoa", desc: "Imported dark cocoa for deep, indulgent chocolate flavor" },
+  { emoji: "🫐", title: "Fresh Berries", desc: "Hand-picked seasonal berries bursting with natural sweetness" },
+];
+
+const INGREDIENTS_RIGHT = [
+  { emoji: "🍓", title: "Real Strawberry", desc: "Fresh, ripe strawberries for authentic fruity taste" },
+  { emoji: "🌾", title: "Fine Flour", desc: "Premium sifted flour for the lightest, fluffiest sponge" },
+  { emoji: "🥛", title: "Fresh Cream", desc: "Whipped daily for silky smooth frosting and fillings" },
 ];
 
 // ─── Main Component ───
@@ -117,7 +126,7 @@ export default function Home({ onNavigate }) {
                 eggless cakes — made fresh just for you!
               </p>
 
-              <div className="flex gap-4 flex-wrap">
+              <div className="hero-buttons">
                 <motion.button
                   whileHover={{ scale: 1.04, y: -2 }}
                   whileTap={{ scale: 0.97 }}
@@ -134,15 +143,40 @@ export default function Home({ onNavigate }) {
                   View Menu
                 </motion.button>
               </div>
+
+              {/* Stats bar */}
+              <motion.div
+                className="hero-stats"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.6, duration: 0.6 }}
+              >
+                {HERO_STATS.map((s, i) => (
+                  <div key={i} className="hero-stat">
+                    <span className="hero-stat-value">{s.value}</span>
+                    <span className="hero-stat-label">{s.label}</span>
+                  </div>
+                ))}
+              </motion.div>
             </motion.div>
 
-            {/* Right image */}
+            {/* Right image — Premium showcase */}
             <motion.div
               className="hero-image-side"
               initial={{ opacity: 0, scale: 0.85 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.9, delay: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
             >
+              {/* Decorative blob behind the cake */}
+              <div className="hero-blob"></div>
+              {/* Rotating ring */}
+              <motion.div
+                className="hero-ring"
+                animate={{ rotate: 360 }}
+                transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+              />
+              {/* Glowing accent */}
+              <div className="hero-glow"></div>
               <img
                 src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=800&h=800&fit=crop"
                 alt="Delicious eggless cake"
@@ -245,34 +279,71 @@ export default function Home({ onNavigate }) {
               <div className="ingredients-heading">
                 <p className="eyebrow">The Secret Is In</p>
                 <h2>Our Natural Ingredients</h2>
+                <p className="ingredients-subtitle">Only the finest, freshest ingredients go into every cake we bake</p>
               </div>
             </FadeIn>
 
-            <FadeIn delay={0.2}>
-              <div className="ingredients-visual">
-                {/* Central cake */}
-                <img
-                  src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=500&h=500&fit=crop"
-                  alt="Our signature cake"
-                  className="ingredients-cake"
-                />
-
-                {/* Floating ingredient labels */}
-                {INGREDIENTS_DATA.map((ing, i) => (
+            <div className="ingredients-showcase">
+              {/* Left ingredient cards */}
+              <div className="ingredients-col">
+                {INGREDIENTS_LEFT.map((ing, i) => (
                   <motion.div
                     key={i}
-                    className="ingredient-label"
-                    style={{ top: ing.top, left: ing.left }}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
+                    className="ingredient-card"
+                    initial={{ opacity: 0, x: -30 }}
+                    whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
-                    transition={{ delay: 0.4 + i * 0.1, type: "spring", stiffness: 200 }}
+                    transition={{ delay: 0.2 + i * 0.15, duration: 0.5 }}
+                    whileHover={{ y: -4, boxShadow: "0 12px 32px rgba(214, 51, 108, 0.12)" }}
                   >
-                    {ing.label}
+                    <div className="ingredient-card-icon">{ing.emoji}</div>
+                    <div className="ingredient-card-text">
+                      <h4>{ing.title}</h4>
+                      <p>{ing.desc}</p>
+                    </div>
                   </motion.div>
                 ))}
               </div>
-            </FadeIn>
+
+              {/* Center cake — Premium arch showcase */}
+              <FadeIn delay={0.2} className="ingredients-center">
+                <div className="ingredients-cake-wrap">
+                  <div className="ingredients-cake-glow"></div>
+                  <div className="ingredients-cake-arch">
+                    <img
+                      src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=600&h=750&fit=crop"
+                      alt="Our signature cake"
+                      className="ingredients-cake"
+                    />
+                  </div>
+                  <div className="ingredients-cake-badge">
+                    <span className="badge-emoji">🌿</span>
+                    <span className="badge-text">100% Natural</span>
+                  </div>
+                </div>
+              </FadeIn>
+
+              {/* Right ingredient cards */}
+              <div className="ingredients-col">
+                {INGREDIENTS_RIGHT.map((ing, i) => (
+                  <motion.div
+                    key={i}
+                    className="ingredient-card"
+                    initial={{ opacity: 0, x: 30 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.2 + i * 0.15, duration: 0.5 }}
+                    whileHover={{ y: -4, boxShadow: "0 12px 32px rgba(214, 51, 108, 0.12)" }}
+                  >
+                    <div className="ingredient-card-icon">{ing.emoji}</div>
+                    <div className="ingredient-card-text">
+                      <h4>{ing.title}</h4>
+                      <p>{ing.desc}</p>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
           </div>
         </section>
 
