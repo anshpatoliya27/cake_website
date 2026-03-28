@@ -1,4 +1,5 @@
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -45,19 +46,35 @@ const PROCESS = [
     { step: "04", title: "Pickup & Enjoy", icon: "🎉" }
 ];
 
+const PHILOSOPHIES = [
+    "We don't cut corners. A truly premium cake isn't just about how it looks on the outside—it's about the impeccable hygiene, the finest ingredients, and the exact science of baking it to absolute perfection. Quality is our ultimate recipe.",
+    "Every creation tells a story. From the selection of perfectly ripe fruits to the careful tempering of rich Belgian cocoa, we believe that the soul of our baking lives in the tiny details. Your joy is our motivation.",
+    "Baking is our language of love. Our exclusive eggless recipes are born from countless hours of passionate refinement to ensure every slice is just as light, fluffy, and decadent as you deserve."
+];
+
 export default function About() {
     const navigate = useNavigate();
+    const [activePhilosophy, setActivePhilosophy] = useState(0);
+    const [autoPlay, setAutoPlay] = useState(true);
+
+    useEffect(() => {
+        if (!autoPlay) return;
+        const interval = setInterval(() => {
+            setActivePhilosophy((prev) => (prev + 1) % PHILOSOPHIES.length);
+        }, 5000); // changes every 5 seconds
+        return () => clearInterval(interval);
+    }, [autoPlay]);
 
     return (
         <div className="min-h-screen bg-[#ffeef3] font-['Outfit'] selection:bg-pink-200 text-[#1a1a2e] overflow-x-hidden">
             <Navbar />
 
-            <main className="pt-28 pb-0">
+            <main className="pt-24 pb-0">
 
                 {/* ════════════════════════════════════
             1. HERO SECTION
             ════════════════════════════════════ */}
-                <section className="relative w-full max-w-[1400px] mx-auto px-6 pt-20 pb-28 md:pt-32 md:pb-36 text-center overflow-hidden min-h-[75vh] flex flex-col justify-center items-center">
+                <section className="relative w-full max-w-[1400px] mx-auto px-6 pt-8 pb-20 md:pt-10 md:pb-24 text-center overflow-hidden min-h-[60vh] flex flex-col justify-center items-center">
 
                     {/* --- BACKGROUND ENHANCEMENTS --- */}
                     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-tr from-pink-300/30 via-rose-200/20 to-transparent rounded-full blur-[100px] pointer-events-none z-0" />
@@ -143,7 +160,7 @@ export default function About() {
                                 Love
                             </span>,<br />
                             Baked with{" "}
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-500 to-pink-600">
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FF2A54] to-[#FF9B00] drop-shadow-[0_2px_10px_rgba(255,42,84,0.3)] italic pr-2">
                                 Passion
                             </span> 💖
                         </motion.h1>
@@ -329,11 +346,39 @@ export default function About() {
                             variants={fadeUp}
                         >
                             <h2 className="text-3xl md:text-5xl font-bold mb-8">Our Philosophy</h2>
-                            <blockquote className="text-xl md:text-2xl font-light italic text-gray-300 leading-relaxed">
-                                "We don't cut corners. A truly premium cake isn't just about how it looks on the outside—it's about the impeccable hygiene, the finest ingredients, and the exact science of baking it to absolute perfection. Quality is our ultimate recipe."
-                            </blockquote>
-                            <div className="mt-10 flex justify-center gap-2 text-pink-400">
-                                <span>✦</span><span>✦</span><span>✦</span>
+
+                            <div className="h-[220px] md:h-[140px] relative flex items-center justify-center w-full">
+                                <AnimatePresence mode="wait">
+                                    <motion.blockquote
+                                        key={activePhilosophy}
+                                        initial={{ opacity: 0, scale: 0.95, y: 10 }}
+                                        animate={{ opacity: 1, scale: 1, y: 0 }}
+                                        exit={{ opacity: 0, scale: 0.95, y: -10 }}
+                                        transition={{ duration: 0.4 }}
+                                        className="absolute text-xl md:text-2xl font-light italic text-gray-300 leading-relaxed w-full px-4"
+                                    >
+                                        "{PHILOSOPHIES[activePhilosophy]}"
+                                    </motion.blockquote>
+                                </AnimatePresence>
+                            </div>
+
+                            <div className="mt-8 flex justify-center gap-4 text-2xl">
+                                {PHILOSOPHIES.map((_, idx) => (
+                                    <button
+                                        key={idx}
+                                        onClick={() => {
+                                            setActivePhilosophy(idx);
+                                            setAutoPlay(false);
+                                        }}
+                                        className={`transition-all duration-300 hover:scale-125 focus:outline-none ${activePhilosophy === idx
+                                            ? "text-pink-500 scale-125 drop-shadow-[0_0_8px_rgba(236,72,153,0.7)]"
+                                            : "text-gray-600 hover:text-pink-400"
+                                            }`}
+                                        aria-label={`Go to philosophy slide ${idx + 1}`}
+                                    >
+                                        ✦
+                                    </button>
+                                ))}
                             </div>
                         </motion.div>
                     </div>
