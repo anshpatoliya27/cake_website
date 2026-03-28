@@ -3,6 +3,19 @@ import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
+// ─── Cream Drip SVG (Frosting separator) ───
+function CreamDrip({ fromColor = "#fff5f7", toColor = "#ffffff", className = "" }) {
+    return (
+        <div className={`relative w-full leading-none z-10 ${className}`} style={{ marginTop: '-2px', marginBottom: '-2px' }}>
+            <svg viewBox="0 0 1440 120" preserveAspectRatio="none" className="block w-full h-auto" xmlns="http://www.w3.org/2000/svg">
+                <rect width="1440" height="60" fill={fromColor} />
+                <path d="M0,60 C60,60 90,60 120,62 C150,65 160,90 180,95 C200,100 210,80 240,60 C280,60 320,60 360,60 C380,60 390,60 420,65 C450,80 460,110 480,115 C500,110 510,75 540,60 C600,60 660,60 720,60 C740,60 750,62 770,70 C790,85 800,100 820,100 C840,100 850,78 870,60 C930,60 990,60 1020,60 C1040,60 1050,65 1070,75 C1090,90 1100,105 1120,105 C1140,105 1150,85 1170,60 C1230,60 1290,60 1350,60 C1370,60 1380,62 1400,68 C1420,80 1430,90 1440,85 L1440,0 L0,0 Z" fill={fromColor} />
+                <path d="M0,60 C60,60 90,60 120,62 C150,65 160,90 180,95 C200,100 210,80 240,60 C280,60 320,60 360,60 C380,60 390,60 420,65 C450,80 460,110 480,115 C500,110 510,75 540,60 C600,60 660,60 720,60 C740,60 750,62 770,70 C790,85 800,100 820,100 C840,100 850,78 870,60 C930,60 990,60 1020,60 C1040,60 1050,65 1070,75 C1090,90 1100,105 1120,105 C1140,105 1150,85 1170,60 C1230,60 1290,60 1350,60 C1370,60 1380,62 1400,68 C1420,80 1430,90 1440,85 L1440,120 L0,120 Z" fill={toColor} />
+            </svg>
+        </div>
+    );
+}
+
 // Animation Variants
 const fadeUp = {
     hidden: { opacity: 0, y: 30 },
@@ -44,92 +57,176 @@ export default function About() {
                 {/* ════════════════════════════════════
             1. HERO SECTION
             ════════════════════════════════════ */}
-                <section className="relative max-w-7xl mx-auto px-6 pt-16 pb-20 md:py-24 text-center">
-                    {/* Decorative floating blurred blobs */}
-                    <div className="absolute top-10 left-10 w-48 h-48 bg-pink-300/30 rounded-full blur-3xl pointer-events-none" />
-                    <div className="absolute bottom-10 right-10 w-64 h-64 bg-rose-300/30 rounded-full blur-3xl pointer-events-none" />
+                <section className="relative w-full max-w-[1400px] mx-auto px-6 pt-20 pb-28 md:pt-32 md:pb-36 text-center overflow-hidden min-h-[75vh] flex flex-col justify-center items-center">
+
+                    {/* --- BACKGROUND ENHANCEMENTS --- */}
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-tr from-pink-300/30 via-rose-200/20 to-transparent rounded-full blur-[100px] pointer-events-none z-0" />
+                    <div className="absolute top-[10%] left-[20%] w-[300px] h-[300px] bg-white/60 rounded-full blur-[70px] pointer-events-none z-0" />
+
+                    {/* --- BACKGROUND BLOBS FOR DEPTH --- */}
+                    <motion.div
+                        animate={{ rotate: 360, scale: [1, 1.1, 1] }}
+                        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                        className="absolute -top-20 -left-20 w-[400px] h-[400px] bg-rose-200/20 rounded-[40%] blur-[60px] pointer-events-none z-0"
+                    />
+                    <motion.div
+                        animate={{ rotate: -360, scale: [1, 1.2, 1] }}
+                        transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+                        className="absolute bottom-0 -right-20 w-[500px] h-[500px] bg-pink-300/20 rounded-[30%] blur-[80px] pointer-events-none z-0"
+                    />
+
+                    {/* --- FLOATING ELEMENTS --- */}
+                    {/* Left side floaters */}
+                    <motion.div
+                        animate={{ y: [0, -20, 0], rotate: [0, 10, 0] }}
+                        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+                        className="absolute hidden md:flex items-center justify-center top-[15%] left-[5%] xl:left-[12%] w-24 h-24 bg-white/60 backdrop-blur-md rounded-2xl shadow-[0_8px_30px_rgba(214,51,108,0.15)] border border-white/80 z-10 hover:scale-110 transition-transform cursor-pointer"
+                    >
+                        <span className="text-5xl drop-shadow-md">🍰</span>
+                    </motion.div>
 
                     <motion.div
-                        initial="hidden"
-                        animate="visible"
-                        variants={fadeUp}
-                        className="relative z-10 max-w-3xl mx-auto"
+                        animate={{ y: [0, 25, 0], rotate: [0, -15, 0] }}
+                        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+                        className="absolute hidden md:flex items-center justify-center bottom-[20%] left-[2%] xl:left-[8%] w-20 h-20 bg-white/50 backdrop-blur-md rounded-full shadow-[0_8px_30px_rgba(214,51,108,0.1)] border border-white/60 z-10 hover:scale-110 transition-transform cursor-pointer"
                     >
-                        <span className="inline-block py-1.5 px-4 rounded-full bg-white/60 border border-white font-semibold text-rose-500 text-sm mb-6 backdrop-blur-md shadow-sm">
-                            Our Journey
-                        </span>
-                        <h1 className="text-4xl md:text-6xl font-extrabold mb-6 leading-tight tracking-tight">
-                            Made with <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-rose-400">Love</span>,<br />
-                            Baked with Passion 💖
-                        </h1>
-                        <p className="text-lg md:text-xl text-gray-500 leading-relaxed font-medium">
+                        <span className="text-4xl drop-shadow-md">🍓</span>
+                    </motion.div>
+
+                    {/* Right side floaters */}
+                    <motion.div
+                        animate={{ y: [0, -15, 0], rotate: [0, -12, 0] }}
+                        transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+                        className="absolute hidden md:flex items-center justify-center top-[12%] right-[5%] xl:right-[12%] w-28 h-28 bg-white/60 backdrop-blur-md rounded-[32px] shadow-[0_8px_30px_rgba(214,51,108,0.15)] border border-white/80 z-10 hover:scale-110 transition-transform cursor-pointer"
+                    >
+                        <span className="text-6xl drop-shadow-md">🧁</span>
+                    </motion.div>
+
+                    <motion.div
+                        animate={{ y: [0, 30, 0], rotate: [0, 20, 0] }}
+                        transition={{ duration: 9, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+                        className="absolute hidden md:flex items-center justify-center bottom-[25%] right-[2%] xl:right-[8%] w-[72px] h-[72px] bg-white/50 backdrop-blur-md rounded-[20px] shadow-[0_8px_30px_rgba(214,51,108,0.1)] border border-white/60 z-10 hover:scale-110 transition-transform cursor-pointer"
+                    >
+                        <span className="text-3xl drop-shadow-md">🍫</span>
+                    </motion.div>
+
+                    {/* Small accent sparkles */}
+                    <motion.div animate={{ opacity: [0.3, 1, 0.3], scale: [0.8, 1.2, 0.8] }} transition={{ duration: 3, repeat: Infinity }} className="absolute top-[35%] left-[20%] xl:left-[25%] text-pink-400 text-2xl z-0">✨</motion.div>
+                    <motion.div animate={{ opacity: [0.3, 1, 0.3], scale: [0.8, 1.2, 0.8] }} transition={{ duration: 4, repeat: Infinity, delay: 1 }} className="absolute bottom-[30%] right-[22%] xl:right-[28%] text-rose-400 text-3xl z-0">✦</motion.div>
+
+
+                    {/* --- MAIN CONTENT --- */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 50 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.9, ease: [0.25, 0.46, 0.45, 0.94] }}
+                        className="relative z-20 max-w-[900px] mx-auto p-6 md:p-12 rounded-[40px] bg-white/10 backdrop-blur-sm shadow-[0_0_80px_rgba(214,51,108,0.08)] border border-white/20"
+                    >
+                        <motion.span
+                            initial={{ opacity: 0, y: 15 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.6, delay: 0.3 }}
+                            className="inline-flex items-center gap-2 py-2 px-6 rounded-full bg-white/80 border border-white/80 font-bold text-rose-500 text-sm mb-8 backdrop-blur-lg shadow-sm"
+                        >
+                            <span className="w-2 h-2 rounded-full bg-rose-500 animate-pulse"></span>
+                            Premium Homemade Bakery
+                        </motion.span>
+
+                        <motion.h1
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.8, delay: 0.4 }}
+                            className="text-5xl md:text-7xl lg:text-[84px] font-black mb-8 leading-[1.1] tracking-tight text-[#1a1a2e]"
+                        >
+                            Made with{" "}
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-rose-400">
+                                Love
+                            </span>,<br />
+                            Baked with{" "}
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-500 to-pink-600">
+                                Passion
+                            </span> 💖
+                        </motion.h1>
+
+                        <motion.p
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.8, delay: 0.6 }}
+                            className="text-lg md:text-[22px] text-gray-600 leading-relaxed font-medium max-w-2xl mx-auto"
+                        >
                             We believe every celebration deserves a centerpiece that looks spectacular and tastes unforgettable. Welcome to our world of premium homemade eggless baking.
-                        </p>
+                        </motion.p>
                     </motion.div>
                 </section>
 
-                {/* ════════════════════════════════════
-            2. OUR STORY SECTION
-            ════════════════════════════════════ */}
-                <section className="max-w-7xl mx-auto px-6 py-16 md:py-24">
-                    <div className="flex flex-col lg:flex-row items-center gap-12 md:gap-20">
-                        {/* Text Side */}
-                        <motion.div
-                            className="flex-1 space-y-6"
-                            initial="hidden"
-                            whileInView="visible"
-                            viewport={{ once: true, margin: "-100px" }}
-                            variants={fadeUp}
-                        >
-                            <h2 className="text-3xl md:text-4xl font-bold">The Story of <br /><span className="text-pink-500">Cake by Khushi</span></h2>
-                            <div className="h-1 w-20 bg-gradient-to-r from-pink-500 to-rose-400 rounded-full my-6"></div>
-                            <p className="text-gray-600 leading-relaxed text-[17px]">
-                                What started as a simple passion for baking in a home kitchen has blossomed into a beloved local brand. I wanted to solve a problem I saw too often: finding high-quality, 100% eggless cakes that didn't compromise on that light, fluffy, melt-in-your-mouth texture.
-                            </p>
-                            <p className="text-gray-600 leading-relaxed text-[17px]">
-                                Every single cake that leaves our kitchen in Ahmedabad is crafted entirely by hand. No mass production. No artificial preservatives. Just honest, premium ingredients and a genuine love for the art of pastry.
-                            </p>
-                            <div className="pt-4 flex items-center gap-4">
-                                <div className="w-14 h-14 rounded-full bg-gradient-to-br from-pink-100 to-rose-100 flex items-center justify-center text-2xl shadow-sm border border-white">
-                                    👩‍🍳
-                                </div>
-                                <div>
-                                    <h4 className="font-bold text-lg">Khushi</h4>
-                                    <p className="text-sm text-gray-500 font-medium tracking-wide">FOUNDER & BAKER</p>
-                                </div>
-                            </div>
-                        </motion.div>
+                <CreamDrip fromColor="#ffeef3" toColor="#ffffff" />
 
-                        {/* Image Side */}
-                        <motion.div
-                            className="flex-1 w-full"
-                            initial={{ opacity: 0, scale: 0.9, rotate: -2 }}
-                            whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
-                            viewport={{ once: true, margin: "-100px" }}
-                            transition={{ duration: 0.8, ease: "easeOut" }}
-                        >
-                            <div className="relative">
-                                {/* Decorative border/backdrop */}
-                                <div className="absolute inset-0 bg-gradient-to-tr from-pink-300 to-rose-200 rounded-[32px] transform rotate-3 scale-105 opacity-50 blur-sm"></div>
-                                <img
-                                    src="https://images.unsplash.com/photo-1557308536-ee471ef2c390?w=800&h=900&fit=crop"
-                                    alt="Baker preparing cake"
-                                    className="relative rounded-[32px] object-cover w-full h-[500px] shadow-2xl border-4 border-white/80"
-                                />
+                <div className="bg-white">
+                    {/* ════════════════════════════════════
+                2. OUR STORY SECTION
+                ════════════════════════════════════ */}
+                    <section className="max-w-7xl mx-auto px-6 py-16 md:py-24">
+                        <div className="flex flex-col lg:flex-row items-center gap-12 md:gap-20">
+                            {/* Text Side */}
+                            <motion.div
+                                className="flex-1 space-y-6"
+                                initial="hidden"
+                                whileInView="visible"
+                                viewport={{ once: true, margin: "-100px" }}
+                                variants={fadeUp}
+                            >
+                                <h2 className="text-3xl md:text-4xl font-bold">The Story of <br /><span className="text-pink-500">Cake by Khushi</span></h2>
+                                <div className="h-1 w-20 bg-gradient-to-r from-pink-500 to-rose-400 rounded-full my-6"></div>
+                                <p className="text-gray-600 leading-relaxed text-[17px]">
+                                    What started as a simple passion for baking in a home kitchen has blossomed into a beloved local brand. I wanted to solve a problem I saw too often: finding high-quality, 100% eggless cakes that didn't compromise on that light, fluffy, melt-in-your-mouth texture.
+                                </p>
+                                <p className="text-gray-600 leading-relaxed text-[17px]">
+                                    Every single cake that leaves our kitchen in Ahmedabad is crafted entirely by hand. No mass production. No artificial preservatives. Just honest, premium ingredients and a genuine love for the art of pastry.
+                                </p>
+                                <div className="pt-4 flex items-center gap-4">
+                                    <div className="w-14 h-14 rounded-full bg-gradient-to-br from-pink-100 to-rose-100 flex items-center justify-center text-2xl shadow-sm border border-white">
+                                        👩‍🍳
+                                    </div>
+                                    <div>
+                                        <h4 className="font-bold text-lg">Khushi</h4>
+                                        <p className="text-sm text-gray-500 font-medium tracking-wide">FOUNDER & BAKER</p>
+                                    </div>
+                                </div>
+                            </motion.div>
 
-                                {/* Floating badge */}
-                                <motion.div
-                                    animate={{ y: [0, -10, 0] }}
-                                    transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                                    className="absolute -bottom-6 -left-6 bg-white/90 backdrop-blur-md px-6 py-4 rounded-2xl shadow-[0_8px_30px_rgba(214,51,108,0.15)] border border-white"
-                                >
-                                    <p className="text-3xl font-black text-pink-500 mb-1">100%</p>
-                                    <p className="text-sm font-bold text-gray-600 tracking-wider">HOMEMADE</p>
-                                </motion.div>
-                            </div>
-                        </motion.div>
-                    </div>
-                </section>
+                            {/* Image Side */}
+                            <motion.div
+                                className="flex-1 w-full"
+                                initial={{ opacity: 0, scale: 0.9, rotate: -2 }}
+                                whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
+                                viewport={{ once: true, margin: "-100px" }}
+                                transition={{ duration: 0.8, ease: "easeOut" }}
+                            >
+                                <div className="relative">
+                                    {/* Decorative border/backdrop */}
+                                    <div className="absolute inset-0 bg-gradient-to-tr from-pink-300 to-rose-200 rounded-[32px] transform rotate-3 scale-105 opacity-50 blur-sm"></div>
+                                    <img
+                                        src="https://images.unsplash.com/photo-1557308536-ee471ef2c390?w=800&h=900&fit=crop"
+                                        alt="Baker preparing cake"
+                                        className="relative rounded-[32px] object-cover w-full h-[500px] shadow-2xl border-4 border-white/80"
+                                    />
+
+                                    {/* Floating badge */}
+                                    <motion.div
+                                        animate={{ y: [0, -10, 0] }}
+                                        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                                        className="absolute -bottom-6 -left-6 bg-white/90 backdrop-blur-md px-6 py-4 rounded-2xl shadow-[0_8px_30px_rgba(214,51,108,0.15)] border border-white"
+                                    >
+                                        <p className="text-3xl font-black text-pink-500 mb-1">100%</p>
+                                        <p className="text-sm font-bold text-gray-600 tracking-wider">HOMEMADE</p>
+                                    </motion.div>
+                                </div>
+                            </motion.div>
+                        </div>
+                    </section>
+                </div>
+
+                <CreamDrip fromColor="#ffffff" toColor="#ffeef3" />
 
                 {/* ════════════════════════════════════
             3. WHY CHOOSE US
