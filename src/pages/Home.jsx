@@ -141,6 +141,7 @@ export default function Home() {
                 <motion.button
                   whileHover={{ scale: 1.03, y: -2 }}
                   whileTap={{ scale: 0.97 }}
+                  onClick={() => navigate("/menu")}
                   className="btn-secondary"
                 >
                   View Menu
